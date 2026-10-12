@@ -17,8 +17,6 @@ return new class extends Migration {
             $table->string('domain');
             $table->boolean('is_active')->default(true);
             $table->text('secret');
-            $table->text('previous_secret')->nullable();
-            $table->dateTime('previous_secret_expires_at')->nullable();
             $table->dateTime('last_used_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
@@ -29,7 +27,7 @@ return new class extends Migration {
             $table->foreignId('site_id')->constrained('sites')->cascadeOnDelete();
             $table->string('logo_url')->nullable();
             $table->string('favicon_url')->nullable();
-            $table->string('primary_color');
+            $table->string('primary_color', 7)->default('#0284c7');
             $table->string('hero_headline')->nullable();
             $table->text('hero_subheadline')->nullable();
             $table->string('cta_text')->nullable();
