@@ -11,9 +11,18 @@ class SiteConfigResource extends JsonResource
     {
         $content = $this->content;
         $seo = $this->seo;
-        $waNumber = $content->whatsapp_number ?? '';
+        $waNumber = preg_replace('/\D/', '', $content->whatsapp_number ?? '');
         $waText = $content->whatsapp_message_template ?? '';
-        $waUrl = $waNumber ? 'https://wa.me/' . preg_replace('/[^0-9]/', '', $waNumber) . '?text=' . urlencode($waText) : '';
+
+        if (str_starts_with($waNumber, '0')) {
+            $waNumber = '62' . substr($waNumber, 1);
+        } elseif (str_starts_with($waNumber, '8')) {
+            $waNumber = '62' . $waNumber;
+        }
+
+        $waUrl = $waNumber
+            ? 'https://wa.me/' . $waNumber . '?text=' . urlencode($waText)
+            : '';
 
         return [
             'site' => [
@@ -22,8 +31,8 @@ class SiteConfigResource extends JsonResource
                 'domain' => $this->domain,
             ],
             'branding' => [
-                'logo_url' => $content->logo_url ?? '',
-                'favicon_url' => $content->favicon_url ?? '',
+                'logo_url' => $content?->logo_url ? asset('storage/' . $content->logo_url) : '',
+                'favicon_url' => $content?->favicon_url ? asset('storage/' . $content->favicon_url) : '',
                 'primary_color' => $content->primary_color ?? '#0284c7',
             ],
             'hero' => [
