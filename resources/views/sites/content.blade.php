@@ -7,6 +7,15 @@
 <h1>{{ $content->exists ? 'Edit' : 'Tambah' }} konten: {{ $site->name }}</h1>
 <p class="sub">{{ $site->domain }} · ID {{ $site->site_id }}</p>
 
+<nav class="tabs">
+    <a class="tab active" href="{{ route('sites.content.edit', $site) }}">🎨 Konten & Tampilan</a>
+    <a class="tab" href="{{ route('sites.seo.edit', $site) }}">🔍 SEO & OpenGraph</a>
+</nav>
+
+<div class="notice">
+    ℹ️ <strong>Catatan:</strong> Perubahan konfigurasi tampil di situs dalam ±2 menit karena sistem cache ISR.
+</div>
+
 <div class="layout">
     <form class="form" method="POST" action="{{ route('sites.content.update', $site) }}" enctype="multipart/form-data">
         @csrf

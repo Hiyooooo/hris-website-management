@@ -20,7 +20,8 @@
         <p class="muted">{{ $site->domain }}</p>
 
         <p class="muted">
-            Konten: {{ $site->content ? 'sudah diisi' : 'belum diisi' }}
+            Konten: {{ $site->content ? 'sudah diisi' : 'belum diisi' }} · 
+            SEO: {{ $site->seo ? 'sudah diisi' : 'belum diisi' }}
         </p>
 
         @if ($site->content)
@@ -29,9 +30,14 @@
             data-color="{{ $site->content->primary_color ?? '#2563eb' }}"></span>
         @endif
 
-        <a class="btn" href="{{ route('sites.content.edit', $site) }}">
-            {{ $site->content ? 'Edit konten' : 'Tambah konten' }}
-        </a>
+        <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <a class="btn" style="flex: 1;" href="{{ route('sites.content.edit', $site) }}">
+                {{ $site->content ? 'Edit konten' : 'Tambah konten' }}
+            </a>
+            <a class="btn" style="background: #4b5563;" href="{{ route('sites.seo.edit', $site) }}">
+                SEO
+            </a>
+        </div>
     </article>
     @empty
     <p>Belum ada website. Jalankan seeder atau tambahkan website terlebih dahulu.</p>

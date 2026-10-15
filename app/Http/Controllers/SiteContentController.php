@@ -22,7 +22,7 @@ class SiteContentController extends Controller
 
     public function index(): View
     {
-        $sites = Sites::with('content')->orderBy('name')->get();
+        $sites = Sites::with(['content', 'seo'])->orderBy('name')->get();
 
         return view('sites.index', compact('sites'));
     }
