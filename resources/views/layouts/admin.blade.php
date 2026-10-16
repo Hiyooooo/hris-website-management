@@ -47,6 +47,7 @@
         .pv-nav img { max-height: 32px; max-width: 120px; }
         .pv-judul { font-size: 22px; line-height: 1.2; margin-bottom: 8px; }
         .pv-desk { color: #6b7280; font-size: 14px; margin-bottom: 16px; }
+        .pv-cta { display: inline-block; background: var(--warna, #2563eb); color: #ffffff; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; text-align: center; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); cursor: default; }
         .tabs { display: flex; gap: 8px; margin: 18px 0 20px; border-bottom: 2px solid #e5e7eb; }
         .tab { padding: 10px 18px; font-weight: 600; font-size: 14px; border-bottom: 2px solid transparent; margin-bottom: -2px; color: #4b5563; }
         .tab:hover { color: #111827; }

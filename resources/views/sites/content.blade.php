@@ -3,17 +3,18 @@
 @section('title', 'Konten '.$site->name)
 
 @section('content')
-<a class="back" href="{{ route('sites.index') }}">← Semua website</a>
+<a class="back" href="{{ route('sites.index') }}">Kembali ke Daftar Website</a>
 <h1>{{ $content->exists ? 'Edit' : 'Tambah' }} konten: {{ $site->name }}</h1>
 <p class="sub">{{ $site->domain }} · ID {{ $site->site_id }}</p>
 
 <nav class="tabs">
-    <a class="tab active" href="{{ route('sites.content.edit', $site) }}">🎨 Konten & Tampilan</a>
-    <a class="tab" href="{{ route('sites.seo.edit', $site) }}">🔍 SEO & OpenGraph</a>
+    <a class="tab active" href="{{ route('sites.content.edit', $site) }}">Konten & Tampilan</a>
+    <a class="tab" href="{{ route('sites.seo.edit', $site) }}">SEO & OpenGraph</a>
+    <a class="tab" href="{{ route('sites.keys.show', $site) }}">Kunci Akses</a>
 </nav>
 
 <div class="notice">
-    ℹ️ <strong>Catatan:</strong> Perubahan konfigurasi tampil di situs dalam ±2 menit karena sistem cache ISR.
+    <strong>Catatan:</strong> Perubahan konfigurasi tampil di situs dalam ±2 menit karena sistem cache ISR.
 </div>
 
 <div class="layout">
@@ -126,7 +127,7 @@
         </div>
     </form>
 
-    <aside class="preview" id="preview" style="--warna: {{ old('primary_color', $content->primary_color) }}">
+    <aside class="preview" id="preview" style="--warna: {{ old('primary_color', $content->primary_color ?? '#2563eb') }}">
         <h3>Pratinjau</h3>
         <div class="pv-nav">
             @php($logoSrc = $content->logo_url ? asset('storage/'.$content->logo_url) : null)
@@ -135,7 +136,9 @@
         </div>
         <h2 class="pv-judul" id="pv-title"></h2>
         <p class="pv-desk" id="pv-sub"></p>
-        <span class="pv-cta" id="pv-cta"></span>
+        <div style="margin-top: 16px;">
+            <span class="pv-cta" id="pv-cta"></span>
+        </div>
     </aside>
 </div>
 @endsection
@@ -157,7 +160,7 @@
         }
         $('pv-title').textContent = $('hero_headline').value || 'Judul hero tampil di sini';
         $('pv-sub').textContent = $('hero_subheadline').value || 'Deskripsi singkat hero.';
-        $('pv-cta').textContent = $('cta_text').value || 'Tombol';
+        $('pv-cta').textContent = $('cta_text').value || 'Konsultasi Sekarang';
     }
 
     picker.addEventListener('input', () => {

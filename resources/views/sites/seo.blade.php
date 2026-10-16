@@ -3,17 +3,18 @@
 @section('title', 'SEO & OpenGraph ' . $site->name)
 
 @section('content')
-<a class="back" href="{{ route('sites.index') }}">← Semua website</a>
+<a class="back" href="{{ route('sites.index') }}">Kembali ke Daftar Website</a>
 <h1>Pengaturan SEO & OpenGraph: {{ $site->name }}</h1>
 <p class="sub">{{ $site->domain }} · ID {{ $site->site_id }}</p>
 
 <nav class="tabs">
-    <a class="tab" href="{{ route('sites.content.edit', $site) }}">🎨 Konten & Tampilan</a>
-    <a class="tab active" href="{{ route('sites.seo.edit', $site) }}">🔍 SEO & OpenGraph</a>
+    <a class="tab" href="{{ route('sites.content.edit', $site) }}">Konten & Tampilan</a>
+    <a class="tab active" href="{{ route('sites.seo.edit', $site) }}">SEO & OpenGraph</a>
+    <a class="tab" href="{{ route('sites.keys.show', $site) }}">Kunci Akses</a>
 </nav>
 
 <div class="notice">
-    ℹ️ <strong>Catatan:</strong> Perubahan konfigurasi tampil di situs dalam ±2 menit karena sistem cache ISR.
+    <strong>Catatan:</strong> Perubahan konfigurasi tampil di situs dalam ±2 menit karena sistem cache ISR.
 </div>
 
 <div class="layout">

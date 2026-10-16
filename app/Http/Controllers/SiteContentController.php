@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSiteRequest;
 use App\Http\Requests\UpdateSiteContentRequest;
 use App\Models\SiteContent;
 use App\Models\Sites;
+use App\Services\SiteSecretService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -25,6 +27,28 @@ class SiteContentController extends Controller
         $sites = Sites::with(['content', 'seo'])->orderBy('name')->get();
 
         return view('sites.index', compact('sites'));
+    }
+
+    public function create(): View
+    {
+        return view('sites.create');
+    }
+
+    public function store(StoreSiteRequest $request, SiteSecretService $service): RedirectResponse
+    {
+        $site = Sites::create([
+            'site_id' => $request->input('site_id'),
+            'name' => $request->input('name'),
+            'domain' => $request->input('domain'),
+            'is_active' => $request->boolean('is_active', true),
+            'secret' => 'temp',
+        ]);
+
+        $service->setInitialSecret($site);
+
+        return redirect()
+            ->route('sites.content.edit', $site)
+            ->with('success', 'Website ' . $site->name . ' berhasil ditambahkan. Silakan lengkapi kontennya.');
     }
 
     // Satu halaman untuk "tambah" (konten belum ada) dan "edit" (sudah ada).
@@ -67,8 +91,6 @@ class SiteContentController extends Controller
 
         // Satu website selalu satu baris konten. Lewat model, jadi cache API ikut dibersihkan.
         SiteContent::updateOrCreate(['site_id' => $site->id], $data);
-
-        // TODO: catat ke activity_logs setelah tabelnya ada.
 
         return redirect()
             ->route('sites.content.edit', $site)
