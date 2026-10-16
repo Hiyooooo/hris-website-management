@@ -47,7 +47,20 @@
         .pv-nav img { max-height: 32px; max-width: 120px; }
         .pv-judul { font-size: 22px; line-height: 1.2; margin-bottom: 8px; }
         .pv-desk { color: #6b7280; font-size: 14px; margin-bottom: 16px; }
-        .pv-cta { display: inline-block; background: var(--warna); color: #fff; padding: 9px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+        .pv-cta { display: inline-block; background: var(--warna, #2563eb); color: #ffffff; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; text-align: center; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); cursor: default; }
+        .tabs { display: flex; gap: 8px; margin: 18px 0 20px; border-bottom: 2px solid #e5e7eb; }
+        .tab { padding: 10px 18px; font-weight: 600; font-size: 14px; border-bottom: 2px solid transparent; margin-bottom: -2px; color: #4b5563; }
+        .tab:hover { color: #111827; }
+        .tab.active { color: #2563eb; border-bottom-color: #2563eb; }
+        .notice { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #1e40af; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .char-count { font-size: 12px; color: #6b7280; text-align: right; margin-top: 2px; }
+        .og-card { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .og-img-wrap { width: 100%; height: 180px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        .og-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .og-content { padding: 14px; }
+        .og-domain { font-size: 11px; text-transform: uppercase; color: #6b7280; font-weight: 700; letter-spacing: 0.5px; }
+        .og-title { font-size: 15px; font-weight: 700; color: #111827; margin: 4px 0 6px; line-height: 1.3; }
+        .og-desc { font-size: 13px; color: #4b5563; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .preview { position: static; } .dua { grid-template-columns: 1fr; } }
     </style>
 </head>

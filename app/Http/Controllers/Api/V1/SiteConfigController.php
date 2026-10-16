@@ -13,9 +13,8 @@ class SiteConfigController extends Controller
     {
         $site = $request->attributes->get('current_site');
 
-        $site->loadMissing(['content', 'seo']);
-
         $data = Cache::remember("site:{$site->site_id}:config", 3600, function () use ($site, $request) {
+            $site->loadMissing(['content', 'seo']);
             return (new SiteConfigResource($site))->toArray($request);
         });
 

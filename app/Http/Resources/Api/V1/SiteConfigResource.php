@@ -59,7 +59,7 @@ class SiteConfigResource extends JsonResource
                 'meta_title' => $seo->meta_title ?? '',
                 'meta_description' => $seo->meta_description ?? '',
                 'keywords' => $seo->keywords ?? [],
-                'og_image_url' => $seo->og_image_url ?? '',
+                'og_image_url' => $seo?->og_image_url ? (str_starts_with($seo->og_image_url, 'http') ? $seo->og_image_url : asset('storage/' . $seo->og_image_url)) : '',
             ],
         ];
     }
