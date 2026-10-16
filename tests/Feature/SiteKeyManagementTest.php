@@ -31,7 +31,8 @@ class SiteKeyManagementTest extends TestCase
             ->assertSee($rawSecret)
             ->assertSee('Konfigurasi .env (Next.js)')
             ->assertSee('API_URL=')
-            ->assertSee('SITE_ID=01-talentacloud');
+            ->assertSee('SITE_ID=01-talentacloud')
+            ->assertSee('REVALIDATE=120');
     }
 
     public function test_it_can_regenerate_secret_key_and_immediately_revokes_old_key(): void
