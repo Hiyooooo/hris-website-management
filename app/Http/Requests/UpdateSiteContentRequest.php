@@ -22,6 +22,13 @@ class UpdateSiteContentRequest extends FormRequest
             $gabung['primary_color'] = str_starts_with($warna, '#') ? $warna : '#' . $warna;
         }
 
+        if ($this->filled('domain')) {
+            $domain = strtolower(trim($this->input('domain')));
+            $domain = preg_replace('#^https?://#', '', $domain);
+            $domain = rtrim($domain, '/');
+            $gabung['domain'] = $domain;
+        }
+
         // 0812 3456 7890 atau 812... menjadi 62812...
         if ($this->filled('whatsapp_number')) {
             $nomor = preg_replace('/\D+/', '', $this->input('whatsapp_number'));
@@ -39,6 +46,9 @@ class UpdateSiteContentRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => ['sometimes', 'required', 'string', 'max:100'],
+            'domain' => ['sometimes', 'required', 'string', 'max:100'],
+
             'logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
             'favicon' => ['nullable', 'file', 'mimes:png,ico,webp', 'max:512'],
             'remove_logo' => ['nullable', 'boolean'],
