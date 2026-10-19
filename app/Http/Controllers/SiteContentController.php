@@ -70,7 +70,14 @@ class SiteContentController extends Controller
     {
         $content = $site->content; // bisa null kalau belum pernah diisi
 
+        $siteData = $request->safe()->only(['name', 'domain']);
+        if (!empty($siteData)) {
+            $site->update($siteData);
+        }
+
         $data = $request->safe()->except([
+            'name',
+            'domain',
             'logo',
             'favicon',
             'remove_logo',

@@ -166,4 +166,29 @@ class SiteConfigApiTest extends TestCase
 
         $this->assertEquals('Headline Versi Baru dari Admin', $response2->json('hero.headline'));
     }
+
+    public function test_it_can_update_site_name_and_domain_from_content_form(): void
+    {
+        $site = Sites::create([
+            'site_id' => '01-talentacloud',
+            'name' => 'Nama Lama',
+            'domain' => 'lama.id',
+            'is_active' => true,
+            'secret' => 'temp',
+        ]);
+
+        $response = $this->put(route('sites.content.update', $site), [
+            'name' => 'Nama Baru Talenta',
+            'domain' => 'https://baru.talentacloud.id/',
+            'primary_color' => '#10b981',
+            'hero_headline' => 'Headline Baru',
+        ]);
+
+        $response->assertRedirect(route('sites.content.edit', $site));
+        $response->assertSessionHas('success');
+
+        $site->refresh();
+        $this->assertEquals('Nama Baru Talenta', $site->name);
+        $this->assertEquals('baru.talentacloud.id', $site->domain);
+    }
 }

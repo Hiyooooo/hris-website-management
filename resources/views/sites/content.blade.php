@@ -23,7 +23,21 @@
         @method('PUT')
 
         <fieldset>
-            <legend>Identitas visual</legend>
+            <legend>Identitas website & visual</legend>
+
+            <div class="dua">
+                <div>
+                    <label for="name">Nama website</label>
+                    <input id="name" name="name" type="text" maxlength="100" value="{{ old('name', $site->name) }}" required>
+                    @error('name') <span class="err">{{ $message }}</span> @enderror
+                </div>
+                <div>
+                    <label for="domain">Domain website</label>
+                    <input id="domain" name="domain" type="text" maxlength="100" placeholder="contoh: talentacloud.id" value="{{ old('domain', $site->domain) }}" required>
+                    <span class="hint">Domain tujuan tanpa awalan https://</span>
+                    @error('domain') <span class="err">{{ $message }}</span> @enderror
+                </div>
+            </div>
 
             <label for="logo">Logo</label>
             <input id="logo" name="logo" type="file" accept=".png,.jpg,.jpeg,.webp">
@@ -132,7 +146,7 @@
         <div class="pv-nav">
             @php($logoSrc = $content->logo_url ? asset('storage/'.$content->logo_url) : null)
             <img id="pv-logo" alt="Logo" @if ($logoSrc) src="{{ $logoSrc }}" @else hidden @endif>
-            <span>{{ $site->name }}</span>
+            <span id="pv-brand">{{ $site->name }}</span>
         </div>
         <h2 class="pv-judul" id="pv-title"></h2>
         <p class="pv-desk" id="pv-sub"></p>
@@ -158,6 +172,7 @@
             preview.style.setProperty('--warna', v);
             picker.value = v;
         }
+        $('pv-brand').textContent = $('name').value || 'Nama Situs';
         $('pv-title').textContent = $('hero_headline').value || 'Judul hero tampil di sini';
         $('pv-sub').textContent = $('hero_subheadline').value || 'Deskripsi singkat hero.';
         $('pv-cta').textContent = $('cta_text').value || 'Konsultasi Sekarang';
@@ -168,7 +183,7 @@
         perbaruiPratinjau();
     });
 
-    ['primary_color', 'hero_headline', 'hero_subheadline', 'cta_text'].forEach((id) =>
+    ['name', 'primary_color', 'hero_headline', 'hero_subheadline', 'cta_text'].forEach((id) =>
         $(id).addEventListener('input', perbaruiPratinjau)
     );
 
